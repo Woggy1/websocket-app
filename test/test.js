@@ -8,11 +8,8 @@ describe('WebSocket Server', function () {
   let client;
 
   before(function (done) {
-    // Запускаємо сервер асинхронно
-    setTimeout(() => {
-      client = new WebSocket('ws://localhost:8080');
-      client.on('open', done); // Підключаємося до сервера
-    }, 1000); // Затримка для того, щоб сервер встиг запуститися
+    client = new WebSocket('ws://localhost:8080');
+    client.on('open', done);
   });
 
   it('should echo messages sent to the server', function (done) {
@@ -26,6 +23,6 @@ describe('WebSocket Server', function () {
 
   after(function () {
     client.close();
-    server.close(); // Закриваємо сервер після тестів
+    server.close(); // Закриваємо сервер
   });
 });
