@@ -2,20 +2,20 @@
 const { expect } = require('chai');
 const WebSocket = require('ws');
 
+// Експортуємо сервер для доступу до нього в тестах
+const server = require('../server.js');
+
 describe('WebSocket Server', function () {
-  let server;
   let client;
 
   before(function (done) {
-    server = require('../server.js');
     client = new WebSocket('ws://localhost:8080');
-
     client.on('open', done);
   });
 
   it('should echo messages sent to the server', function (done) {
     client.on('message', function (message) {
-      expect(message).to.equal('Echo: Hello, WebSocket!');
+      expect(message.toString()).to.equal('Echo: Hello, WebSocket!');
       done();
     });
 
@@ -24,6 +24,6 @@ describe('WebSocket Server', function () {
 
   after(function () {
     client.close();
-    server.close();
+    server.close(); // Закриваємо сервер
   });
 });
