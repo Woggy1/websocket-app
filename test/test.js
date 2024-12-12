@@ -1,4 +1,3 @@
-// test/test.js
 const { expect } = require('chai');
 const WebSocket = require('ws');
 
@@ -9,8 +8,11 @@ describe('WebSocket Server', function () {
   let client;
 
   before(function (done) {
-    client = new WebSocket('ws://localhost:8080');
-    client.on('open', done);
+    // Запускаємо сервер асинхронно
+    setTimeout(() => {
+      client = new WebSocket('ws://localhost:8080');
+      client.on('open', done); // Підключаємося до сервера
+    }, 1000); // Затримка для того, щоб сервер встиг запуститися
   });
 
   it('should echo messages sent to the server', function (done) {
@@ -24,6 +26,6 @@ describe('WebSocket Server', function () {
 
   after(function () {
     client.close();
-    server.close(); // Закриваємо сервер
+    server.close(); // Закриваємо сервер після тестів
   });
 });

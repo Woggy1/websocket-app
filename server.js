@@ -1,4 +1,3 @@
-// server.js
 const WebSocket = require('ws');
 
 // Створення WebSocket сервера
