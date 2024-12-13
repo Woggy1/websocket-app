@@ -11,6 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -19,5 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Mocha (if not installed globally)
+        run: npm install mocha --save-dev
+
+      - name: Make Mocha executable
+        run: chmod +x ./node_modules/.bin/mocha
+
       - name: Run tests
-        run: npm test
+        run: npx mocha test/test.js
